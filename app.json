@@ -18,6 +18,7 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "prof.ronny.helpinghand",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -25,6 +26,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "6125be91-452b-4fa6-b26e-15243552b211"
+      }
     }
   }
 }

@@ -3,12 +3,15 @@ import { View, Text, FlatList, StyleSheet, ScrollView, VirtualizedList } from 'r
 import axios from 'axios';
 import { FAB } from 'react-native-paper';
 
+import { useUser } from '../UserContext';
+
 function OcorrenciasScreen({ navigation, route}) {
   const [ocorrencias, setOcorrencias] = useState([]);
+  const { user } = useUser();
 
   async function buscarOcorrencias() {
     try {
-      const response = await axios.get('https://servicosronny.azurewebsites.net/api/Formulario');
+      const response = await axios.get(`https://servicosronny.azurewebsites.net/api/Formulario/PessoaFisica/${user.id}`);
       setOcorrencias(response.data);
     } catch (error) {
       console.error('Erro ao buscar ocorrências:', error);
@@ -27,6 +30,7 @@ function OcorrenciasScreen({ navigation, route}) {
         keyExtractor={item => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.item}>
+            <Text style={styles.descricao}>{item.tipoOcorrencia}</Text>
             <Text style={styles.descricao}>{item.descricao}</Text>
             <Text>Data: {new Date(item.dataCadastro).toLocaleDateString()}</Text>
             <Text>Status: {item.status}</Text>
