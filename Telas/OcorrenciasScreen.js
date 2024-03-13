@@ -2,12 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, StyleSheet, ScrollView, VirtualizedList } from 'react-native';
 import axios from 'axios';
 import { FAB } from 'react-native-paper';
+import styles from '../Estilos/Estilos';
+import { useIsFocused } from '@react-navigation/native';
 
 import { useUser } from '../UserContext';
 
 function OcorrenciasScreen({ navigation, route}) {
   const [ocorrencias, setOcorrencias] = useState([]);
   const { user } = useUser();
+
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused) {
+      // Carregar ou atualizar dados
+      buscarOcorrencias();
+    }
+  }, [isFocused]);
 
   async function buscarOcorrencias() {
     try {
@@ -49,25 +60,6 @@ function OcorrenciasScreen({ navigation, route}) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 22
-  },
-  item: {
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc'
-  },
-  descricao: {
-    fontWeight: 'bold'
-  },
-  fab: {
-    position: 'absolute',
-    margin: 16,
-    right: 0,
-    bottom: 0,
-  },
-});
+
 
 export default OcorrenciasScreen;

@@ -1,11 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { Button , TextInput} from 'react-native-paper';
+import { View,   ScrollView } from 'react-native';
+import { Button , TextInput } from 'react-native-paper';
 import { useUser } from '../UserContext';
 import axios from 'axios';
 import { useState } from 'react';
-import { ScrollView } from 'react-native-gesture-handler';
-
+import styles from '../Estilos/Estilos';
 
 export default function PerfilScreen() {
     const { user, setUser } = useUser();
@@ -47,7 +46,7 @@ export default function PerfilScreen() {
     };
   
     return (
-      <ScrollView>
+      <ScrollView style={styles.scroll}>
       <View style={styles.container}>
         <TextInput
           style={styles.input}
@@ -86,27 +85,14 @@ export default function PerfilScreen() {
         />
         
         {editando ? (
-          <Button mode='elevated' onPress={handleSave}> Salvar Alterações</Button> 
+          <Button style={styles.button} mode='elevated' onPress={handleSave}> Salvar Alterações</Button> 
         ) : (
-          <Button onPress={() => setEditando(true)}>Editar</Button>
+          <Button style={styles.button} mode='elevated' onPress={() => setEditando(true)}>Editar</Button>
         )}
       </View>
       </ScrollView>
     );
   }
   
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    input: {
-      borderWidth: 1,
-      borderColor: 'gray',
-      width: '80%',
-      padding: 10,
-      marginVertical: 5,
-    },
-  });
+ 
   

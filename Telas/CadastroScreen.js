@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet } from 'react-native';
+import { View } from 'react-native';
+import { TextInput, Button } from 'react-native-paper';
 
 import axios from 'axios';
 import generateSHA256Hash from '../Criptografia/Index';
 import { ScrollView } from 'react-native-gesture-handler';
+import styles from '../Estilos/Estilos';
 
 const BASE_URL = 'https://servicosronny.azurewebsites.net';
 
@@ -46,7 +48,7 @@ const CadastroScreen= () => {
 
   return (
     
-    <ScrollView>
+    <ScrollView style={styles.scroll}>
     <View style={styles.container}>
       <TextInput
         style={styles.input}
@@ -79,28 +81,13 @@ const CadastroScreen= () => {
         value={senha}
         secureTextEntry
       />
-      <Button title="Cadastrar" onPress={handleCadastro} />
+      <Button style={styles.button}  onPress={handleCadastro}>Cadastrar</Button> 
     </View>
     </ScrollView>
  
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  input: {
-    width: '100%',
-    padding: 10,
-    marginBottom: 10,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-  },
-});
+
 
 export default CadastroScreen;

@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { View,StyleSheet, KeyboardAvoidingView, Platform , Image } from 'react-native';
+import { View, KeyboardAvoidingView, Platform , Image } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import axios from 'axios';
+import LoadingModal from './LoadingModal';
 
 import { ScrollView } from 'react-native-gesture-handler';
 import { useUser } from '../UserContext';
 import { useEffect } from 'react';
+import styles from '../Estilos/Estilos';
 
 
 const BASE_URL = 'https://servicosronny.azurewebsites.net';
@@ -20,7 +22,8 @@ import logo from '../images/logo.jpg'
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
-  const { user, setUser } = useUser()
+  const { user, setUser } = useUser();
+  const [carregando, setCarregando] = useState(false);
 
 
   useEffect(() => {
@@ -42,7 +45,9 @@ const LoginScreen = ({ navigation }) => {
 
   const handleLogin = async () => {
     try {
+      setCarregando(true);
       const response = await axios.post(`${BASE_URL}/api/authPF`, { email, senha });
+      setCarregando(false);
       if (response.status === 200) {
         const dados = await response.data;
         console.log(dados);
@@ -66,6 +71,7 @@ const LoginScreen = ({ navigation }) => {
         alert('Falha no login. Verifique suas credenciais.');
       }
     } catch (error) {
+      setCarregando(false);
       // Exibe mensagem de erro
       alert('Erro ao realizar login. Tente novamente mais tarde.'+ error.message);
     }
@@ -86,7 +92,7 @@ const LoginScreen = ({ navigation }) => {
     style={{ flex: 1 }}
   >
     <ScrollView style={styles.scroll}> 
-    <View style={styles.container}>
+    <View style={styles.container} >
     
     
       <Image source={logo} style={styles.image} />
@@ -111,8 +117,9 @@ const LoginScreen = ({ navigation }) => {
         style={styles.button}
         mode='elevated'
         onPress={() => navigation.navigate('Cadastro')}>Criar Conta</Button>
-      <Button style={styles.button} mode='elevated' onPress={recuperarSenha} >Recuperar Senha</Button> 
       
+      <Button style={styles.button} mode='elevated' onPress={recuperarSenha} >Esqueci a Senha</Button> 
+      <LoadingModal isLoading={carregando} />
    
     
     </View>
@@ -121,44 +128,6 @@ const LoginScreen = ({ navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 2,
-    backgroundColor: '#2e98bf'
-  },
-  scroll: {
-    flex: 1,
-    backgroundColor: '#2e98bf'
-  },
-  image: {
-    flex: 1,
-    width: 100, 
-    height: 200,
-    borderRadius: 5,
-    padding: 10,
-    resizeMode: 'stretch',
-    marginBottom: 10, 
-    
-  },  
 
-  input: {
-    width: '100%',
-    marginHorizontal: 20,
-    padding: 5,
-    marginBottom: 5,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    height: 35,
-
-  },
-  button: { 
-    borderRadius:10,
-    marginVertical: 10,
-  }
-});
 
 export default LoginScreen;
