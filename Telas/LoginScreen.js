@@ -27,17 +27,7 @@ const LoginScreen = ({ navigation }) => {
 
 
   useEffect(() => {
-    navigation.setOptions({
-      title: '', // Defina o título da barra de navegação
-      headerStyle: {
-        backgroundColor: '#2e98bf', // Cor de fundo da barra de navegação
-      },
-      headerTintColor: '#fff', // Cor dos botões e título na barra de navegação
-      headerTitleStyle: {
-        fontWeight: 'bold', // Estilo do título
-      },
-      // Outras opções que você deseja personalizar
-    });
+    navigation.setOptions(styles.appBarLogin);
   }, [navigation]);
 
   // O restante do seu código...

@@ -14,7 +14,7 @@ import LoadingModal from './LoadingModal';
 
 // Biblioteca para obter a localização
 
-function CadastroOcorrenciaScreen() {
+function CadastroOcorrenciaScreen({ navigation }) {
     const [descricao, setDescricao] = useState('');
     const [latitude, setLatitude] = useState('');
     const [longitude, setLongitude] = useState('');
@@ -36,6 +36,10 @@ function CadastroOcorrenciaScreen() {
             }
         })();
     }, []);
+
+    useEffect(() => {
+        navigation.setOptions(styles.appBarLogin);
+    }, [navigation]);
 
 
     useEffect(() => {
@@ -234,7 +238,7 @@ function CadastroOcorrenciaScreen() {
                 <Button style={styles.button} mode='elevated' icon="content-save" disabled={carregando} onPress={handleSubmit}>Enviar</Button>
                 <LoadingModal isLoading={carregando} />
             </ScrollView>
-            
+
         </View>
     );
 }
