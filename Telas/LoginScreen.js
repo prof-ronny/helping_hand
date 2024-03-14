@@ -27,7 +27,7 @@ const LoginScreen = ({ navigation }) => {
 
 
   useEffect(() => {
-    navigation.setOptions(styles.appBarLogin);
+    navigation.setOptions(styles.appBar);
   }, [navigation]);
 
   // O restante do seu código...
