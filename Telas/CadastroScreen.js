@@ -7,7 +7,7 @@ import generateSHA256Hash from '../Criptografia/Index';
 import { ScrollView } from 'react-native-gesture-handler';
 import styles from '../Estilos/Estilos';
 
-const BASE_URL = 'https://servicosronny.azurewebsites.net';
+import { BASE_URL } from '../Config/api';
 
 
 

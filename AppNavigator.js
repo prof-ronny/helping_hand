@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from './Telas/LoginScreen';
 import CadastroScreen from './Telas/CadastroScreen';
+import OcorrenciaTela from './Telas/Ocorrencia';  
 
 import HomeDrawer from './Telas/HomeDrawer';
 import CadastroOcorrenciaScreen from './Telas/CadastroOcorrencia';
@@ -17,6 +18,7 @@ const AppNavigator = () => {
         <Stack.Screen name="Cadastro" component={CadastroScreen} />
         <Stack.Screen name="HomeDrawer" component={HomeDrawer} options={{ headerShown: false }} />
         <Stack.Screen name="CadastroOcorrenciaScreen" component={CadastroOcorrenciaScreen } />
+        <Stack.Screen name="Ocorrencia" component={OcorrenciaTela}  />
       </Stack.Navigator>
     </NavigationContainer>
   );

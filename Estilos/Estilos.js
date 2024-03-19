@@ -1,15 +1,18 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions  } from 'react-native';
+
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
-    appBar:{
+    appBar: {
         headerStyle: {
             backgroundColor: '#2e98bf',
         },
         headerTintColor: '#fff', // Cor dos botões e título no header
         headerTitleStyle: {
-          fontWeight: 'bold', // Estilo do título
+            fontWeight: 'bold', // Estilo do título
         },
-      },
+    },
 
 
     fundo: {
@@ -17,15 +20,15 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        
+
 
 
         padding: 2,
         backgroundColor: '#2e98bf'
     },
-    linha:{
+    linha: {
         flexDirection: 'row',
-        
+
 
     },
     scroll: {
@@ -45,10 +48,10 @@ const styles = StyleSheet.create({
     },
 
     input: {
-        
+
         margin: 3,
         padding: 3,
-        
+
         borderWidth: 1,
         borderColor: '#ccc',
         borderRadius: 10,
@@ -56,14 +59,14 @@ const styles = StyleSheet.create({
 
     },
     inputMultiline: {
-        
+
         margin: 3,
         padding: 3,
-        
+
         borderWidth: 1,
         borderColor: '#ccc',
         borderRadius: 10,
-        
+
 
     },
     button: {
@@ -98,14 +101,49 @@ const styles = StyleSheet.create({
         padding: 10,
         shadowColor: '#000',
         shadowOffset: {
-          width: 5,
-          height: 2,
+            width: 5,
+            height: 2,
         },
         shadowOpacity: 0.2,
         shadowRadius: 1.41,
-  
+
         elevation: 2,
-      }
+    },
+    card: {
+        backgroundColor: '#fff',
+        borderRadius: 8,
+        padding: 15,
+        marginBottom: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 2,
+        elevation: 3,
+    },
+    title: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 10,
+    },
+    mapContainer: {
+        height: 200,
+        width: '100%',
+        marginTop: 20,
+    },
+    map: {
+        ...StyleSheet.absoluteFillObject,
+    },
+    foto: {
+        width: 100,
+        height: 100,
+        marginRight: 10,
+        borderRadius: 10,
+    },
+    fotoExpandida: {
+        width: screenWidth * 0.8,
+        height: screenWidth * 0.8,
+        resizeMode: 'contain',
+}
 });
 
 export default styles;  // Estilos.js

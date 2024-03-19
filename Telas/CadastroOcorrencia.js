@@ -10,6 +10,7 @@ import { Dropdown } from 'react-native-element-dropdown';
 import { Button, TextInput } from 'react-native-paper';
 import styles from '../Estilos/Estilos';
 import LoadingModal from './LoadingModal';
+import { BASE_URL } from '../Config/api';
 
 
 // Biblioteca para obter a localização
@@ -25,6 +26,7 @@ function CadastroOcorrenciaScreen({ navigation }) {
     const [tipoOcorrenciaSelecionada, setTipoOcorrenciaSelecionada] = useState(null);
     const { user } = useUser();
     const [carregando, setCarregando] = useState(false);
+
 
     useEffect(() => {
         (async () => {
@@ -45,7 +47,7 @@ function CadastroOcorrenciaScreen({ navigation }) {
     useEffect(() => {
         const fetchTipoOcorrencia = async () => {
             try {
-                const response = await axios.get('https://servicosronny.azurewebsites.net/api/TiposOcorrencias');
+                const response = await axios.get(`${BASE_URL}/api/TiposOcorrencias`);
                 setTipoOcorrencia(response.data);
                 console.log(response.data);
             } catch (error) {
@@ -115,7 +117,7 @@ function CadastroOcorrenciaScreen({ navigation }) {
         });
 
         try {
-            const response = await fetch('https://servicosronny.azurewebsites.net/api/FotoUpload/photo', {
+            const response = await fetch(`${BASE_URL}/api/FotoUpload/photo`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -137,7 +139,7 @@ function CadastroOcorrenciaScreen({ navigation }) {
         try {
 
 
-            const response = await axios.post('https://servicosronny.azurewebsites.net/api/Formulario', dadosOcorrencia);
+            const response = await axios.post(`${BASE_URL}/api/Formulario`, dadosOcorrencia);
             // Trate a resposta como necessário
             // response.data contém os dados retornados pela sua API
             alert('Ocorrência cadastrada com sucesso');

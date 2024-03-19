@@ -10,8 +10,9 @@ import { useEffect } from 'react';
 import styles from '../Estilos/Estilos';
 
 
-const BASE_URL = 'https://servicosronny.azurewebsites.net';
+
 import logo from '../images/logo.jpg' 
+import { BASE_URL } from '../Config/api';
 
 
   
@@ -36,7 +37,9 @@ const LoginScreen = ({ navigation }) => {
   const handleLogin = async () => {
     try {
       setCarregando(true);
+      console.log(BASE_URL);
       const response = await axios.post(`${BASE_URL}/api/authPF`, { email, senha });
+      
       setCarregando(false);
       if (response.status === 200) {
         const dados = await response.data;
