@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, ScrollView, Image } from 'react-native';
+import { View, StyleSheet, Alert, ScrollView, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
 import { Platform } from 'react-native';
@@ -67,14 +67,55 @@ function CadastroOcorrenciaScreen({ navigation }) {
             quality: 1,
         });
 
-        if (!result.canceled) {
+        
+
+        if (!result.cancelled) {
             setFotos([...fotos, result.assets[0].uri]);
             console.log(result);
-            console.log('selecionou foto');
+            console.log(fotos);
         }
-        else {
-            console.log('Cancelou');
+    };
+
+    const takePhoto = async () => {
+        let cameraPermission = await ImagePicker.requestCameraPermissionsAsync();
+
+        if (cameraPermission.status !== 'granted') {
+            alert('Permissão para acessar a câmera foi negada');
+            return;
         }
+
+        let result = await ImagePicker.launchCameraAsync({
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+
+        if (!result.cancelled) {
+            setFotos([...fotos, result.assets[0].uri]);
+            console.log(result);
+            console.log(fotos);
+        }
+    };
+
+    const selecionarOuTirarFoto = () => {
+        Alert.alert(
+            "Selecionar Foto",
+            "Escolha a foto da galeria ou tire uma nova foto.",
+            [
+                {
+                    text: "Cancelar",
+                    style: "cancel"
+                },
+                {
+                    text: "Tirar Foto",
+                    onPress: takePhoto
+                },
+                {
+                    text: "Escolher da Galeria",
+                    onPress: pickImage
+                }
+            ]
+        );
     };
 
     const obterLocalizacaoAtual = async () => {
@@ -83,10 +124,14 @@ function CadastroOcorrenciaScreen({ navigation }) {
             alert('Permissão para acessar a localização foi negada');
             return;
         }
+        const options = {
+            accuracy: Location.Accuracy.Highest,
+            maximumAge: 1000 // Considera as localizações obtidas nos últimos 1 segundo
+        };
 
 
 
-        let location = await Location.getCurrentPositionAsync({});
+        let location = await Location.getCurrentPositionAsync(options);
         let endereco;
 
         try {
@@ -232,7 +277,7 @@ function CadastroOcorrenciaScreen({ navigation }) {
 
                 />
 
-                <Button style={styles.button} mode='elevated' icon='image' onPress={pickImage} >Escolher</Button>
+                <Button style={styles.button} mode='elevated' icon='image' onPress={selecionarOuTirarFoto} >Escolher</Button>
                 {fotos.map((foto, index) => (
                     <Image key={index} source={{ uri: foto }} style={{ width: 400, height: 300 }} />
                 ))}

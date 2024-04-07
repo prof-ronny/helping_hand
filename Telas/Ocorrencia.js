@@ -1,26 +1,68 @@
 
 import React, { useState } from 'react';
 import { View, Text, ScrollView, Image, FlatList, TouchableOpacity } from 'react-native';
-import { Button, TextInput} from 'react-native-paper';
+import { Button, TextInput } from 'react-native-paper';
 import styles from '../Estilos/Estilos';
 import MapView, { Marker } from 'react-native-maps';
 import { BASE_URL } from '../Config/api';
+import { useUser } from '../UserContext';
+import axios from 'axios';
 
 const OcorrenciaTela = ({ route }) => {
     // Dados fictícios para exemplificar
     const { ocorrencia } = route.params;
     const [expandida, setExpandida] = useState(false);
-    
+    const { user } = useUser();
+
+
 
 
     const [descricaoAtualizacao, setDescricaoAtualizacao] = useState('');
 
-    const handleUpdate = () => {
+    const handleUpdate =  async() => {
         // Aqui você implementaria a lógica para enviar a atualização
+        let dadosOcorrencia;
+        console.log('Usuário:');
+        console.log(user);
+        if (user.perfil === 'Entidade') {
+
+            dadosOcorrencia = {
+                formularioId: ocorrencia.id,
+                descricao: descricaoAtualizacao,
+                ongId: user.id,
+                dataAtualizacao: new Date().toISOString(),
+            };
+        } else if (user.perfil === 'PessoaFisica') {
+            dadosOcorrencia = {
+                formularioId: ocorrencia.id,
+                descricao: descricaoAtualizacao,
+                pessoaFisicaId: user.id,
+                dataAtualizacao: new Date().toISOString(),
+            };
+        }
+        ocorrencia.atualizacoes.push(dadosOcorrencia);
+
+        console.log('Dados da ocorrência:');
+
+        console.log(dadosOcorrencia);
+
+
+        try {
+
+
+            const response = await axios.post(`${BASE_URL}/api/Atualizacoes`, dadosOcorrencia);
+            // Trate a resposta como necessário
+            // response.data contém os dados retornados pela sua API
+            alert('Ocorrência cadastrada com sucesso');
+        } catch (error) {
+            console.error('Erro ao enviar dados da ocorrência:', error.response ? error.response.data : error.message);
+        }
+
+
         alert('Atualização enviada!');
     };
     const renderFotoItem = ({ item }) => (
-        <TouchableOpacity onPress={() => setExpandida(!expandida)}><Image source={{ uri: `${BASE_URL}${item.caminho}` }}  style={expandida?styles.fotoExpandida: styles.foto } /></TouchableOpacity>
+        <TouchableOpacity onPress={() => setExpandida(!expandida)}><Image source={{ uri: `${BASE_URL}${item.caminho}` }} style={expandida ? styles.fotoExpandida : styles.foto} /></TouchableOpacity>
     );
     console.log(ocorrencia.descricao);
 
@@ -67,11 +109,11 @@ const OcorrenciaTela = ({ route }) => {
                 <Text>Status: {ocorrencia.status}</Text>
             </View>
             <View style={styles.card}>
-            <FlatList
+                <FlatList
                     data={ocorrencia.atualizacoes}
-                    renderItem={({ item }) => (<View><Text>{item.descricao}</Text><Text>{item.dataAtualizacao}</Text></View>)}
+                    renderItem={({ item }) => (<View style={styles.card}><Text>{item.descricao}</Text><Text>{item.dataAtualizacao}</Text></View>)}
                     keyExtractor={item => item.id}
-                    horizontal
+                    
                     showsHorizontalScrollIndicator={false}
                 />
             </View>

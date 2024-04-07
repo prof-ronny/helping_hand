@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         padding: 10,
         resizeMode: 'stretch',
-        marginBottom: 10,
+        
 
     },
 
@@ -124,6 +124,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         marginBottom: 10,
+        textAlign: 'center',
     },
     mapContainer: {
         height: 200,

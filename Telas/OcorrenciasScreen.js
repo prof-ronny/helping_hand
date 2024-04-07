@@ -27,6 +27,8 @@ function OcorrenciasScreen({ navigation, route}) {
       setOcorrencias(response.data);
     } catch (error) {
       console.error('Erro ao buscar ocorrências:', error);
+      console.error(error.response);
+      console.error(error.request);
     }
   }
 
@@ -49,7 +51,7 @@ function OcorrenciasScreen({ navigation, route}) {
         data={ocorrencias}
         keyExtractor={item => item.id.toString()}
         renderItem={({ item }) => (
-          <View style={styles.item} onTouchEnd={()=>{handleMagicTap(item,navigation)}}>
+          <View style={styles.card} onTouchEnd={()=>{handleMagicTap(item,navigation)}}>
             <Text style={styles.descricao}>{item.tipoOcorrencia}</Text>
             <Text style={styles.descricao}>{item.descricao}</Text>
             <Text>Data: {new Date(item.dataCadastro).toLocaleDateString()}</Text>

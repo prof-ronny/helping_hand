@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, KeyboardAvoidingView, Platform , Image } from 'react-native';
+import { View, KeyboardAvoidingView, Platform, Image } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import axios from 'axios';
 import LoadingModal from './LoadingModal';
@@ -11,13 +11,13 @@ import styles from '../Estilos/Estilos';
 
 
 
-import logo from '../images/logo.jpg' 
+import logo from '../images/logo.jpg'
 import { BASE_URL } from '../Config/api';
 
 
-  
- 
-  
+
+
+
 
 
 const LoginScreen = ({ navigation }) => {
@@ -39,26 +39,51 @@ const LoginScreen = ({ navigation }) => {
       setCarregando(true);
       console.log(BASE_URL);
       const response = await axios.post(`${BASE_URL}/api/authPF`, { email, senha });
-      
+
       setCarregando(false);
       if (response.status === 200) {
         const dados = await response.data;
         console.log(dados);
 
-        // Login bem-sucedido, navega para a tela Home
-        setUser({
-          id: dados.id, // Atribui o id retornado na resposta.  
-          nome: dados.nome, // Atribui o nome retornado na resposta.
-          email:  dados.email,
-          telefone:  dados.telefone,
-          cpf:  dados.cpf,
-          dataNascimento:  dados.dataNascimento,
-        })
+        if (dados.perfil === "PessoaFisica") {
 
-        navigation.reset({
-          index: 0,
-          routes: [{ name: 'HomeDrawer' }],
-        });
+          // Login bem-sucedido, navega para a tela Home
+          setUser({
+            id: dados.id, // Atribui o id retornado na resposta.  
+            nome: dados.nome, // Atribui o nome retornado na resposta.
+            email: dados.email,
+            telefone: dados.telefone,
+            perfil: dados.perfil,
+            cpf: dados.cpf,
+            dataNascimento: dados.dataNascimento,
+          })
+
+
+          navigation.reset({
+            index: 0,
+            routes: [{ name: 'HomeDrawer' }],
+          });
+        }
+        else if (dados.perfil === "Entidade"){
+          setUser({
+            id: dados.id, // Atribui o id retornado na resposta.  
+            nome: dados.nome, // Atribui o nome retornado na resposta.
+            email: dados.email,
+            endereco: dados.endereco,
+            cnpj: dados.cnpj,
+            perfil: dados.perfil,
+            raioAcao: 20
+          })
+
+          console.log("login Entidade");
+
+
+          navigation.reset({
+            index: 0,
+            routes: [{ name: 'HomeEntidade' }],
+          });
+
+        }
       } else {
         // Exibe mensagem de erro
         alert('Falha no login. Verifique suas credenciais.');
@@ -66,57 +91,57 @@ const LoginScreen = ({ navigation }) => {
     } catch (error) {
       setCarregando(false);
       // Exibe mensagem de erro
-      alert('Erro ao realizar login. Tente novamente mais tarde.'+ error.message);
+      alert('Erro ao realizar login. Tente novamente mais tarde.' + error.message);
     }
   };
 
 
-  const recuperarSenha =async () => {
-    if(email === ''){
+  const recuperarSenha = async () => {
+    if (email === '') {
       alert('Digite o email para recuperar a senha');
-    }else{
-      alert('Um email foi enviado para '+ email + ' com as instruções para recuperar a senha');
+    } else {
+      alert('Um email foi enviado para ' + email + ' com as instruções para recuperar a senha');
     }
   }
 
   return (
     <KeyboardAvoidingView
-    behavior={Platform.OS === "ios" ? "padding" : "height"}
-    style={{ flex: 1 }}
-  >
-    <ScrollView style={styles.scroll}> 
-    <View style={styles.container} >
-    
-    
-      <Image source={logo} style={styles.image} />
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{ flex: 1 }}
+    >
+      <ScrollView style={styles.scroll}>
+        <View style={styles.container} >
 
 
-      <TextInput
-        style={styles.input}
-        placeholder="E-mail"
-        onChangeText={setEmail}        
-        value={email}
-      />
-      <TextInput
-        
-        style={styles.input}
-        placeholder="Senha"
-        onChangeText={setSenha}
-        value={senha}
-        secureTextEntry
-      />
-      <Button style={styles.button} mode='elevated' onPress={handleLogin} >Entrar</Button> 
-      <Button
-        style={styles.button}
-        mode='elevated'
-        onPress={() => navigation.navigate('Cadastro')}>Criar Conta</Button>
-      
-      <Button style={styles.button} mode='elevated' onPress={recuperarSenha} >Esqueci a Senha</Button> 
-      <LoadingModal isLoading={carregando} />
-   
-    
-    </View>
-    </ScrollView>
+          <Image source={logo} style={styles.image} />
+
+
+          <TextInput
+            style={styles.input}
+            placeholder="E-mail"
+            onChangeText={setEmail}
+            value={email}
+          />
+          <TextInput
+
+            style={styles.input}
+            placeholder="Senha"
+            onChangeText={setSenha}
+            value={senha}
+            secureTextEntry
+          />
+          <Button style={styles.button} mode='elevated' onPress={handleLogin} >Entrar</Button>
+          <Button
+            style={styles.button}
+            mode='elevated'
+            onPress={() => navigation.navigate('Cadastro')}>Criar Conta</Button>
+
+          <Button style={styles.button} mode='elevated' onPress={recuperarSenha} >Esqueci a Senha</Button>
+          <LoadingModal isLoading={carregando} />
+
+
+        </View>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 };
