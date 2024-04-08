@@ -113,6 +113,8 @@ const OcorrenciaTela = ({ route }) => {
                     data={ocorrencia.atualizacoes}
                     renderItem={({ item }) => (<View style={styles.card}><Text>{item.descricao}</Text><Text>{item.dataAtualizacao}</Text></View>)}
                     keyExtractor={item => item.id}
+                    nestedScrollEnabled={true} // Habilita rolagem aninhada
+                    scrollEnabled={false}
                     
                     showsHorizontalScrollIndicator={false}
                 />

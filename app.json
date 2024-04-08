@@ -15,13 +15,19 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "prof.ronny.helpinghand"
     },
     "android": {
       "package": "prof.ronny.helpinghand",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCbb2hSUMA4zIYF_k-qvT5YRqjlKR3aiiU"
+        }
       }
     },
     "web": {
