@@ -102,13 +102,13 @@ const LoginScreen = ({ navigation }) => {
         value={senha}
         secureTextEntry
       />
-      <Button style={styles.button} mode='elevated' onPress={handleLogin} >Entrar</Button> 
+      <Button style={styles.button} mode='elevated' onPress={handleLogin} >ENTRAR</Button> 
       <Button
         style={styles.button}
         mode='elevated'
-        onPress={() => navigation.navigate('Cadastro')}>Criar Conta</Button>
+        onPress={() => navigation.navigate('Cadastro')}>CRIAR CONTA</Button>
       
-      <Button style={styles.button} mode='elevated' onPress={recuperarSenha} >Esqueci a Senha</Button> 
+      <Button style={styles.button} mode='elevated' onPress={recuperarSenha} >ESQUECI A SENHA</Button> 
       <LoadingModal isLoading={carregando} />
    
     

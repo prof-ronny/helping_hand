@@ -30,7 +30,8 @@ const styles = StyleSheet.create({
     },
     scroll: {
         flex: 1,
-        backgroundColor: '#2e98bf'
+        backgroundColor: '#2e98bf',
+        paddingTop: 10,
     },
     image: {
         alignSelf: 'center',
@@ -40,6 +41,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         padding: 10,
         resizeMode: 'stretch',
+        marginTop: 10,
         marginBottom: 10,
 
     },
@@ -52,7 +54,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#ccc',
         borderRadius: 10,
-        height: 52,
+        height: 45,
 
     },
     inputMultiline: {
@@ -69,10 +71,13 @@ const styles = StyleSheet.create({
     button: {
         alignSelf: 'center',
         borderRadius: 10,
+        borderColor: "navy",
+        borderWidth: 2,
         margin: 3,
         verticalAlign: 'center',
-        width: 180,
-        height: 52,
+        width: "70%",
+        height: "10%",
+        backgroundColor: "white",
     },
     item: {
         padding: 10,
@@ -105,6 +110,17 @@ const styles = StyleSheet.create({
         shadowRadius: 1.41,
   
         elevation: 2,
+      },
+
+      textos: {
+        fontSize: 20,
+        fontWeight: "bold",
+        textAlign: "justify",
+        color: "white",
+        paddingLeft: 10,
+        paddingRight: 10,
+        marginBottom: 10,
+        marginTop: 10,
       }
 });
 

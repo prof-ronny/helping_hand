@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 
 import axios from 'axios';
@@ -49,6 +49,7 @@ const CadastroScreen= () => {
   return (
     
     <ScrollView style={styles.scroll}>
+        <Text style={styles.textos}>Por favor, preencha os campos abaixo para se cadastrar.</Text>
     <View style={styles.container}>
       <TextInput
         style={styles.input}
@@ -81,7 +82,7 @@ const CadastroScreen= () => {
         value={senha}
         secureTextEntry
       />
-      <Button style={styles.button}  onPress={handleCadastro}>Cadastrar</Button> 
+      <Button style={styles.button}  onPress={handleCadastro}>CADASTRAR</Button> 
     </View>
     </ScrollView>
  
