@@ -12,6 +12,9 @@ export const UserProvider = ({ children }) => {
     telefone: '',
     cpf: '',
     dataNascimento: '',
+    endereco: '',
+    cnpj: '',
+    perfil: '',
   });
 
   return (

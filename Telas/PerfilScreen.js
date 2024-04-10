@@ -5,6 +5,7 @@ import { useUser } from '../UserContext';
 import axios from 'axios';
 import { useState } from 'react';
 import styles from '../Estilos/Estilos';
+import { BASE_URL } from '../Config/api';
 
 export default function PerfilScreen() {
     const { user, setUser } = useUser();
@@ -18,7 +19,7 @@ export default function PerfilScreen() {
     async function atualizarUsuario(userId, nome, email, telefone, cpf,dataNascimento ) {
       try {
   
-        const API_URL = 'https://servicosronny.azurewebsites.net/api/PessoaFisica';
+        const API_URL = `${BASE_URL}/api/PessoaFisica`;
         const usuario = (await axios.get(`${API_URL}/${userId}`)).data;
         console.log(usuario);
         const response = await axios.put(`${API_URL}/${userId}`, {id: usuario.id, nome, email, telefone, cpf , dataNascimento, autenticacao : usuario.autenticacao});

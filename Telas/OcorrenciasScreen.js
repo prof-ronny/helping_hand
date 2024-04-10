@@ -4,6 +4,7 @@ import axios from 'axios';
 import { FAB } from 'react-native-paper';
 import styles from '../Estilos/Estilos';
 import { useIsFocused } from '@react-navigation/native';
+import { BASE_URL } from '../Config/api';
 
 import { useUser } from '../UserContext';
 
@@ -22,16 +23,26 @@ function OcorrenciasScreen({ navigation, route}) {
 
   async function buscarOcorrencias() {
     try {
-      const response = await axios.get(`https://servicosronny.azurewebsites.net/api/Formulario/PessoaFisica/${user.id}`);
+      const response = await axios.get(`${BASE_URL}/api/Formulario/PessoaFisica/${user.id}`);
       setOcorrencias(response.data);
     } catch (error) {
       console.error('Erro ao buscar ocorrências:', error);
+      console.error(error.response);
+      console.error(error.request);
     }
   }
 
   useEffect(() => {
     buscarOcorrencias();
   }, []);
+
+  function handleMagicTap(item, navigation) { 
+    console.log(item);  
+    navigation.navigate("Ocorrencia", {ocorrencia: item})
+    console.log(item);  
+
+  }
+
 
   return (
     
@@ -40,7 +51,7 @@ function OcorrenciasScreen({ navigation, route}) {
         data={ocorrencias}
         keyExtractor={item => item.id.toString()}
         renderItem={({ item }) => (
-          <View style={styles.item}>
+          <View style={styles.card} onTouchEnd={()=>{handleMagicTap(item,navigation)}}>
             <Text style={styles.descricao}>{item.tipoOcorrencia}</Text>
             <Text style={styles.descricao}>{item.descricao}</Text>
             <Text>Data: {new Date(item.dataCadastro).toLocaleDateString()}</Text>

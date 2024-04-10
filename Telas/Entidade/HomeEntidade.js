@@ -1,17 +1,17 @@
 import React from 'react';
-import { View, Text, Image  } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import { Button , TextInput} from 'react-native-paper';
-import { useUser } from '../UserContext';
+import { useUser } from '../../UserContext';
 import axios from 'axios';
 import { useState } from 'react';
-import PerfilScreen from './PerfilScreen';
-import OcorrenciasScreen from './OcorrenciasScreen';  
+import PerfilEntidadeScreen from './PerfilEntidadeScreen';
+import OcorrenciasEntidadeScreen from './OcorrenciasEntidade';
 
 import { DrawerItem, createDrawerNavigator } from '@react-navigation/drawer';
 import { ScrollView } from 'react-native-gesture-handler';
-import styles from '../Estilos/Estilos';
-import ConteudoDrawer from '../ConteudoDrawer';
-import logo from '../images/logo.jpg'
+import styles from '../../Estilos/Estilos';
+import ConteudoDrawer from '../../ConteudoDrawer';
+import logo from '../../images/logo.jpg'
 
 const Drawer = createDrawerNavigator();
 
@@ -25,8 +25,8 @@ function HomeDrawer({ navigation, route}) {
       nome: '', // Atribui o nome retornado na resposta.
       email:  '',
       telefone:  '',
-      cpf:  '',
-      dataNascimento:  '',
+      endereco:  '',
+      cnpj:  '',
     });
     navigation.navigate('Login');
   }
@@ -36,12 +36,12 @@ function HomeDrawer({ navigation, route}) {
 
     <Drawer.Navigator
     useLegacyImplementation={false}
-    initialRouteName="HomeTela"
+    initialRouteName="Inicio"
     drawerContent={(props) => <ConteudoDrawer {...props} />}
     >
-      <Drawer.Screen name="HomeTela" component={HomeTela} options={styles.appBar}     />
-      <Drawer.Screen name="Perfil" component={PerfilScreen} options={styles.appBar}  />
-      <Drawer.Screen name="Ocorrencias" component={OcorrenciasScreen} options={styles.appBar}  />
+      <Drawer.Screen name="Inicio" component={HomeTela} options={styles.appBar}     />
+      <Drawer.Screen name="Perfil Entidade" component={PerfilEntidadeScreen} options={styles.appBar}  />
+      <Drawer.Screen name="Ocorrencias" component={OcorrenciasEntidadeScreen} options={styles.appBar}  />
       
       
     </Drawer.Navigator>
@@ -57,11 +57,10 @@ function HomeTela({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Helping Hand</Text>
+      <Text style={styles.title}>Entidade</Text>
       <View style={{height: 200}} >
       <Image source={logo} style={styles.image} />
       </View>
-      
     </View>
   );
 }
