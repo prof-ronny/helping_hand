@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions  } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
         resizeMode: 'stretch',
         marginTop: 10,
         marginBottom: 10,
-        
+
 
     },
 
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
         margin: 3,
         verticalAlign: 'center',
         width: "70%",
-        height: "10%",
+        //height: "10%",
         backgroundColor: "white",
     },
     item: {
@@ -150,10 +150,10 @@ const styles = StyleSheet.create({
         width: screenWidth * 0.8,
         height: screenWidth * 0.8,
         resizeMode: 'contain',
-}
-      },
+    },
 
-      textos: {
+
+    textos: {
         fontSize: 20,
         fontWeight: "bold",
         textAlign: "justify",
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
         paddingRight: 10,
         marginBottom: 10,
         marginTop: 10,
-      }
+    }
 });
 
 export default styles;  // Estilos.js
